@@ -1,0 +1,14 @@
+com\example\demo\Controller\UserController.class
+com\example\demo\Entity\Faceproimages.class
+com\example\demo\Entity\Bodyproimages.class
+com\example\demo\DAO\Fp_img_dao.class
+com\example\demo\DAO\Bpimgdao.class
+com\example\demo\DAO\Bodyprodao.class
+com\example\demo\Model\Product.class
+com\example\demo\services\service.class
+com\example\demo\WbpApplication.class
+com\example\demo\Controller\AdminController.class
+com\example\demo\DAO\Faceprodao.class
+com\example\demo\Entity\Bodyproducts.class
+com\example\demo\Entity\Faceproducts.class
+com\example\demo\ServletInitializer.class

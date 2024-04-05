@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head><title>ADMIN</title></head>
+	<body><h1>WELCOME TO ADMIN</h1>
+		<div><h2>ADD THE PRODUCT</h2>
+			<form action="/add_details" method="post" enctype="multipart/form-data">
+				ID:<input type="text" name="id"><br>
+					PRODUCT_NAME:<input type="text" name="name"><br>
+						PRODUCT_PRICE:<input type="text" name="price"><br>
+						PRODUCT_description:<input type="text" name="des"><br>
+					    Product_img:<input type="file" name="file" accept="image/*" /><br/>
+					    <input type="radio" name="product" value="face" />FaceProducts    <input type="radio" name="product" value="body"/>BodyProducts
+                     	<input type="submit" value="ADD">
+			</form>
+		</div>
+		<div>
+			<h2>UPDATE THE PRICE</h2>
+			<form action="/change" method="post">
+		 <input type="hidden" name="_method" value="PUT">
+    ID: <input type="text" name="id"><br>
+    PRODUCT_PRICE: <input type="text" name="value"><br>
+    <input type="submit" value="Update">
+</form>
+		</div>
+		<div> <h2>DELETE THE PRODUCT</h2></div>
+		<form action="/deleteproduct" method="post">
+			<input type="hidden" name="_method" value="DELETE">
+			ID:<input type="text" name="id"></br>
+			<input type="submit" value="Delete">
+		</form>
+	</body>
+</html>
