@@ -15,7 +15,7 @@ RUN mvn package -DskipTests
 FROM tomcat:10-jdk17-openjdk-buster AS deploy
 
 # Copy the WAR file from the build stage to the Tomcat webapps directory
-COPY --from=build target/My_E-com-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/ROOT.war
+COPY --from=build target/WBP-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/ROOT.war
 
 EXPOSE 8081
 
