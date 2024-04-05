@@ -1,17 +1,23 @@
 
-# Use an OpenJDK base image
-FROM openjdk:17-jdk
+# Stage 1: Build the Maven project
+FROM maven:3-openjdk-17 AS build
 
 
-# Set working directory inside the container
-WORKDIR /app
 
-# Copy the WAR file into the container at /app
-COPY target/WBP-0.0.1-SNAPSHOT.war /app
+# Copy Maven project files to the container
+COPY pom.xml . 
+COPY src /src
 
-# Expose port 8080 to the outside world
-EXPOSE 8080
+# Build the project and skip tests to speed up the build
+RUN mvn package -DskipTests
 
-# Define the command to run your application
-CMD ["java", "-jar", "WBP-0.0.1-SNAPSHOT.war"]
+# Stage 2: Deploy to Tomcat
+FROM tomcat:10-jdk17-openjdk-buster AS deploy
 
+# Copy the WAR file from the build stage to the Tomcat webapps directory
+COPY --from=build target/My_E-com-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/ROOT.war
+
+EXPOSE 8081
+
+# Run Tomcat
+CMD ["catalina.sh", "run"]
