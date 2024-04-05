@@ -12,7 +12,7 @@ import com.example.demo.Entity.Faceproducts;
 import com.example.demo.services.service;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://motherbeauty.vercel.app/")
 @RequestMapping("api")
 public class UserController {
 
