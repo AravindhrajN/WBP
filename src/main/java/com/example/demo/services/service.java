@@ -36,6 +36,8 @@ public class service {
 	private Fp_img_dao fdao;
 	@Autowired
 	private Faceproimages fimg;
+	@Autowired
+	private Product pro;
 
 	public void saveFpro(Product pro) {
 		// TODO Auto-generated method stub
@@ -105,11 +107,35 @@ public class service {
 	}
 
 	public List<Faceproducts> getproduct(String string) {
-		// TODO Auto-generated method stub
+
 		if (string == "face") {
 			return fpdao.findAll();
 		} else {
 			return null;
 		}
 	}
+
+	public List<Product> gettingproduct(long id, String name) {
+
+		if ("face".equals(name)) {
+			try {
+				return pro.getfaceproduct(fpro, fpdao, id);
+			} catch (Exception e) {
+				System.out.print(e);
+			}
+
+		}
+
+		else if ("body".equals(name)) {
+
+			try {
+				return pro.getbodyproduct(bpro, bpdao, id);
+			} catch (Exception e) {
+				System.out.print(e);
+			}
+
+		}
+		return null;
+	}
+
 }
