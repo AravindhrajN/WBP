@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,7 +39,7 @@ public class UserController {
 
 	}
 
-	@GetMapping("savedata")
+	@PostMapping("savedata")
 	public List<String> savedata(@RequestParam("id") int id, @RequestParam("mode") String mode,
 			@RequestParam("quant") int quant, @ModelAttribute CustomerData customer) {
 		List<String> list = new ArrayList<>();
