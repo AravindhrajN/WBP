@@ -55,6 +55,7 @@ public class UserController {
 
 				list.add(ref_id);
 				list.add(order_id);
+				System.out.print("list " + list.get(0));
 				return list;
 			}
 		} catch (Exception e) {
