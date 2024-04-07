@@ -1,6 +1,7 @@
 package com.example.demo.services;
 
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,9 @@ import com.example.demo.Entity.Bodyproducts;
 import com.example.demo.Entity.Bodyproimages;
 import com.example.demo.Entity.Faceproducts;
 import com.example.demo.Entity.Faceproimages;
+import com.example.demo.Model.CustomerData;
+import com.example.demo.Model.Customersavedata;
+import com.example.demo.Model.Customersaveorders;
 import com.example.demo.Model.Product;
 
 @Service
@@ -38,6 +42,10 @@ public class service {
 	private Faceproimages fimg;
 	@Autowired
 	private Product pro;
+	@Autowired
+	private Customersavedata custdet;
+	@Autowired
+	private Customersaveorders custor;
 
 	public void saveFpro(Product pro) {
 		// TODO Auto-generated method stub
@@ -136,6 +144,46 @@ public class service {
 
 		}
 		return null;
+	}
+
+	public String orderid() {
+		String orderid = "";
+		String num = "0123456789";
+		Random ran = new Random();
+		for (int i = 0; i < 16; i++) {
+
+			orderid += String.valueOf(num.charAt(ran.nextInt(num.length())));
+		}
+
+		return orderid;
+	}
+
+	public String referenceid() {
+		String refid = "";
+		String num = "0123456789";
+		String schar = "!@#$%^&*";
+		String ucase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		String lcase = "abcdefghijklmnopqrstuvwxyz";
+		Random ran = new Random();
+		for (int i = 0; i < 7; i++) {
+
+			refid += String.valueOf(num.charAt(ran.nextInt(num.length())));
+		}
+		refid += String.valueOf(schar.charAt(ran.nextInt(schar.length())));
+		refid += String.valueOf(ucase.charAt(ran.nextInt(ucase.length())));
+		for (int i = 0; i < 3; i++) {
+			refid += String.valueOf(lcase.charAt(ran.nextInt(lcase.length())));
+
+		}
+		return refid;
+	}
+
+	public void savecustomer_order(CustomerData customer, int quant, String mode, long id, String order_id,
+			String ref_id) {
+
+		custdet.adddetails(customer, ref_id);
+		custor.adddetails(order_id,ref_id,id,mode,quant);
+
 	}
 
 }
