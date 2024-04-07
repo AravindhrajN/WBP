@@ -39,17 +39,17 @@ public class UserController {
 	}
 
 	@GetMapping("savedata")
-	public List<String> savedata(@RequestParam("id") long id, @RequestParam("mode") String mode,
+	public List<String> savedata(@RequestParam("id") int id, @RequestParam("mode") String mode,
 			@RequestParam("quant") int quant, @ModelAttribute CustomerData customer) {
 		List<String> list = new ArrayList<>();
 		String order_id, ref_id = null;
 		try {
-			if ((quant != 0) && (id != 0L) && (mode != null) && (customer != null)) {
+			if ((quant != 0) && (id != 0) && (mode != null) && (customer != null)) {
 
 				order_id = service.orderid();
 				ref_id = service.referenceid();
-
-				service.savecustomer_order(customer, quant, mode, id, order_id, ref_id);
+				long id2 = id;
+				service.savecustomer_order(customer, quant, mode, id2, order_id, ref_id);
 
 				list.add(ref_id);
 				list.add(order_id);
