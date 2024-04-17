@@ -1,19 +1,12 @@
 package com.example.demo.Model;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.example.demo.DAO.Bpimgdao;
 import com.example.demo.Entity.Bodyproimages;
 import com.example.demo.Entity.Faceproimages;
 
 @Component
 public class Downloadimage {
-
-	@Autowired
-	private Bpimgdao bdao;
-	@Autowired
-	private Bodyproimages bimg;
 
 	private Long img_id;
 	private String img_name;
@@ -65,11 +58,9 @@ public class Downloadimage {
 
 	}
 
-	public Downloadimage savebimage(long id) {
+	public Downloadimage savebimage(Bodyproimages bimg) {
 		// TODO Auto-generated method stub
 		Downloadimage dimg = new Downloadimage();
-
-		bimg = bdao.getReferenceById(id);
 
 		dimg.setImg_id(bimg.getImg_id());
 		dimg.setImg_name(bimg.getImg_name());

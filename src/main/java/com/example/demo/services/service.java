@@ -209,7 +209,9 @@ public class service {
 
 			else if ("body".equals(name)) {
 
-				return dimg.savebimage(id);
+				bimg = bdao.getReferenceById(id);
+
+				return dimg.savebimage(bimg);
 			} else {
 				System.out.print("false");
 			}
