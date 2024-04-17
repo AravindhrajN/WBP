@@ -21,6 +21,8 @@ import com.example.demo.Model.Customersaveorders;
 import com.example.demo.Model.Downloadimage;
 import com.example.demo.Model.Product;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class service {
 
@@ -194,6 +196,7 @@ public class service {
 
 	}
 
+	@Transactional
 	public Downloadimage gettingImage(long id, String name) {
 
 		try {
