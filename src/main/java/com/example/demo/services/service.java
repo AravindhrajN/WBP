@@ -76,6 +76,7 @@ public class service {
 
 		try {
 			fimg.setImg_id(id);
+			System.out.println("face1" + fimg.getImg_id());
 			String originalFilename = file.getOriginalFilename();
 			fimg.setImg_name(originalFilename);
 
@@ -87,7 +88,7 @@ public class service {
 
 			// Save the image entity to the database
 			fdao.save(fimg);
-
+			System.out.println("face 2 " + fdao.getReferenceById(fimg.getImg_id()));
 		} catch (Exception e) {
 			System.out.print(e);
 		}
