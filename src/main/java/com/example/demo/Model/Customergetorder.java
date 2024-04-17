@@ -8,15 +8,7 @@ public class Customergetorder {
 	private String mode;
 	private int quant;
 	private long id;
-	private CustomerData cusdata;
-
-	public CustomerData getCusdata() {
-		return cusdata;
-	}
-
-	public void setCusdata(CustomerData cusdata) {
-		this.cusdata = cusdata;
-	}
+	private CustomerData userdata;
 
 	public String getMode() {
 		return mode;
@@ -40,6 +32,14 @@ public class Customergetorder {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public CustomerData getUserdata() {
+		return userdata;
+	}
+
+	public void setUserdata(CustomerData userdata) {
+		this.userdata = userdata;
 	}
 
 }

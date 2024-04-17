@@ -18,6 +18,7 @@ import com.example.demo.Entity.Faceproimages;
 import com.example.demo.Model.CustomerData;
 import com.example.demo.Model.Customersavedata;
 import com.example.demo.Model.Customersaveorders;
+import com.example.demo.Model.Downloadimage;
 import com.example.demo.Model.Product;
 
 @Service
@@ -46,6 +47,8 @@ public class service {
 	private Customersavedata custdet;
 	@Autowired
 	private Customersaveorders custor;
+	@Autowired
+	private Downloadimage dimg;
 
 	public void saveFpro(Product pro) {
 		// TODO Auto-generated method stub
@@ -114,10 +117,14 @@ public class service {
 
 	}
 
-	public List<Faceproducts> getproduct(String string) {
+	public List<Product> getproduct(String string) {
 
 		if (string == "face") {
-			return fpdao.findAll();
+			List<Faceproducts> fpro = null;
+			return pro.getallfaceproduct(fpro, fpdao);
+		} else if (string == "body") {
+			List<Bodyproducts> bpro = null;
+			return pro.getallbodyproduct(bpro, bpdao);
 		} else {
 			return null;
 		}
@@ -182,7 +189,84 @@ public class service {
 			String ref_id) {
 
 		custdet.adddetails(customer, ref_id);
-		custor.adddetails(order_id,ref_id,id,mode,quant);
+		custor.adddetails(order_id, ref_id, id, mode, quant);
+
+	}
+
+	public Downloadimage gettingImage(long id, String name) {
+
+		try {
+			if ("face".equals(name)) {
+
+				fimg = fdao.getReferenceById(id);
+
+				return dimg.savefimage(fimg);
+			}
+
+			else if ("body".equals(name)) {
+
+				return dimg.savebimage(id);
+			} else {
+				System.out.print("false");
+			}
+
+		} catch (Exception e) {
+			System.out.print(e);
+		}
+
+		return null;
+	}
+
+	public void updateface(long id, String select, String change) {
+		// TODO Auto-generated method stub
+		fpro = fpdao.getReferenceById(id);
+
+		if (select.equalsIgnoreCase("price")) {
+
+			int price = Integer.parseInt(change);
+
+			fpro.setPrice(price);
+			fpdao.save(fpro);
+
+		} else if (select.equalsIgnoreCase("name")) {
+			fpro.setName(change);
+			fpdao.save(fpro);
+		} else {
+			fpro.setDes(change);
+			fpdao.save(fpro);
+		}
+
+	}
+
+	public void updatebody(long id, String select, String change) {
+		// TODO Auto-generated method stub
+
+		bpro = bpdao.getReferenceById(id);
+		if (select.equalsIgnoreCase("price")) {
+
+			int price = Integer.parseInt(change);
+
+			bpro.setPrice(price);
+			bpdao.save(bpro);
+		} else if (select.equalsIgnoreCase("name")) {
+			bpro.setName(change);
+			bpdao.save(bpro);
+		} else {
+			bpro.setDes(change);
+			bpdao.save(bpro);
+		}
+	}
+
+	public void deleteproduct(String id1, String select) {
+		// TODO Auto-generated method stub
+		long id = Integer.parseInt(id1);
+		if (select.equalsIgnoreCase("face")) {
+			fdao.deleteById(id);
+			fpdao.deleteById(id);
+		} else {
+			bpdao.deleteById(id);
+			bdao.deleteById(id);
+		}
 
 	}
 

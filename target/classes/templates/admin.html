@@ -15,18 +15,135 @@
 		</div>
 		<div>
 			<h2>UPDATE THE PRICE</h2>
-			<form action="/change" method="post">
+			<form action="/change"  method="POST" id="formid" onsubmit="return validateupdate()">
 		 <input type="hidden" name="_method" value="PUT">
-    ID: <input type="text" name="id"><br>
-    PRODUCT_PRICE: <input type="text" name="value"><br>
-    <input type="submit" value="Update">
+    ID: <input type="number" name="id"><br>
+    <div>
+		<input type="radio" name="selected" value="price" onchange="handleRadioChange(this.value)"/>
+		<input type="radio" name="selected" value="des" onchange="handleRadioChange(this.value)"/>
+		<input type="radio" name="selected" value="name" onchange="handleRadioChange(this.value)"/>
+	</div>
+	  PRODUCT_Name: <input type="text" id="name" name="change" disabled><br>
+	  PRODUCT_PRICE: <input type="text" id="price" name="change" disabled><br>
+    PRODUCT_Des: <textarea name="change" id="des"  disabled > </textarea><br>
+        <input type="radio" name="selectpro" value="face" />FaceProducts    <input type="radio" name="selectpro" value="body"/>BodyProducts
+    <input type="submit"  value="Update" />
 </form>
 		</div>
 		<div> <h2>DELETE THE PRODUCT</h2></div>
-		<form action="/deleteproduct" method="post">
+		<form action="/deleteproduct"  onsubmit="submit" id="deleteid">
+			<input type="radio" name="selectproduct" value="face" />FaceProducts    <input type="radio" name="selectproduct" value="body"/>BodyProducts
 			<input type="hidden" name="_method" value="DELETE">
-			ID:<input type="text" name="id"></br>
-			<input type="submit" value="Delete">
+			ID:<input type="number" name="id" /></br>
+			<input type="submit" value="Delete" />
 		</form>
+		<script>
+			
+		function validateupdate(){
+	const radioInput = document.querySelectorAll('input[name="selected"]');
+    const nameInput = document.getElementById("name");
+    const priceInput = document.getElementById("price");
+    const desInput = document.getElementById("des");
+    const selectpro = document.querySelectorAll('input[name="selectpro"]');
+    let radioSelected = false;
+    let selectedpro=false;
+
+    radioInput.forEach(input => {
+        if (input.checked) {
+            radioSelected = true;
+        }
+        
+    });
+     selectpro.forEach(input => {
+        if (input.checked) {
+            selectedpro = true;
+        }
+        
+    });
+
+    console.log("Description input value:", desInput.value);
+    if(!radioSelected){
+		alert("select an option");
+		return false;
+	}else if(nameInput.value==="" && !nameInput.disabled){
+		alert("selct the name");
+		return false;
+	}else if(priceInput.value==="" && !priceInput.disabled){
+		alert("select the price")
+		return false;
+	}else if(desInput.value.trim() === '' && !desInput.disabled){
+		alert("select the des");
+		return false;
+	}else if(!selectedpro){
+		alert("select the product");
+		return false;
+	}
+	else{
+		alert("submitted");
+		return true;
+	
+	}
+    
+    
+    
+		}	
+	function handleRadioChange(value) {
+    const nameInput = document.getElementById("name");
+    const priceInput = document.getElementById("price");
+    const desInput = document.getElementById("des");
+
+    if (value === 'price') {
+      nameInput.disabled = true;
+      desInput.disabled = true;
+      priceInput.disabled = false;
+    } else if (value === 'des') {
+      nameInput.disabled = true;
+      priceInput.disabled = true;
+      desInput.disabled = false;
+    } else if (value === 'name') {
+      priceInput.disabled = true;
+      desInput.disabled = true;
+      nameInput.disabled = false;
+    }
+  }
+  
+  const form = document.getElementById('formid');
+
+  
+document.getElementById('deleteid').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const formData = new FormData(this); 
+
+  
+    axios.delete('/deleteproduct', { data: formData })
+        .then(response => {
+       
+        })
+        .catch(error => {
+            console.error('Error sending Delete request:', error);
+           
+        });
+});
+
+form.addEventListener('submit', function(event) {
+    event.preventDefault(); 
+
+
+    const formData = new FormData(form);
+
+    axios.put('/change', formData)
+        .then(response => {
+            console.log('PUT request successful');
+        
+        })
+        .catch(error => {
+            console.error('Error sending PUT request:', error);
+           
+        });
+});
+
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	</body>
 </html>

@@ -2,6 +2,7 @@ package com.example.demo.Model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
@@ -17,6 +18,25 @@ public class Product {
 	private String Name;
 	private String des;
 	private int price;
+
+	public Product() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Product(Faceproducts faceProduct) {
+		this.id = faceProduct.getId();
+		this.Name = faceProduct.getName();
+		this.price = faceProduct.getPrice();
+		this.des = faceProduct.getDes();
+	}
+
+	public Product(Bodyproducts bProduct) {
+		// TODO Auto-generated constructor stub
+		this.id = bProduct.getId();
+		this.Name = bProduct.getName();
+		this.price = bProduct.getPrice();
+		this.des = bProduct.getDes();
+	}
 
 	public Long getId() {
 		return id;
@@ -81,6 +101,24 @@ public class Product {
 		p.setPrice(bpro.getPrice());
 		List<Product> list = new ArrayList<>();
 		list.add(p);
+		return list;
+	}
+
+	public List<Product> getallfaceproduct(List<Faceproducts> fpro, Faceprodao fpdao) {
+
+		fpro = fpdao.findAll();
+
+		List<Product> list = fpro.stream().map(fproduct -> new Product(fproduct)).collect(Collectors.toList());
+
+		return list;
+	}
+
+	public List<Product> getallbodyproduct(List<Bodyproducts> bpro, Bodyprodao bpdao) {
+
+		bpro = bpdao.findAll();
+
+		List<Product> list = bpro.stream().map(bproduct -> new Product(bproduct)).collect(Collectors.toList());
+
 		return list;
 	}
 
