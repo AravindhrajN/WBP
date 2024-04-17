@@ -81,6 +81,7 @@ public class UserController {
 			Downloadimage dimg) {
 
 		try {
+			System.out.println(((Object) id).getClass().getName());
 			dimg = service.gettingImage(id, name);
 			String content = dimg.getImg_content();
 
